@@ -1,4 +1,5 @@
-
+/*The Item class defines an item by its name, sellIn value, and quality value. 
+It provides getters and setters for these 3 values*/
 public final class Item {
 
 	private String name;

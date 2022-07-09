@@ -4,8 +4,10 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
+//Inventory Test provides JUnit testing for each piece of functionality of the Guilded Rose project
 public class InventoryTest {
 
+	//tests that Sulfuras  never change their quality despite their age 
     @Test
     public void should_never_changes_quailty_of_Sulfuras() throws Exception {
         Item sulfuras = new Item("Sulfuras", 0, 80);
@@ -15,7 +17,7 @@ public class InventoryTest {
 
         assertEquals(80, sulfuras.getQuality());
     }
-
+    //tests that Sulfuras  never change their sellIn despite their age 
     @Test
     public void should_never_changes_sellIn_of_Sulfuras() throws Exception {
         Item sulfuras = new Item("Sulfuras", 0, 80);
@@ -25,7 +27,7 @@ public class InventoryTest {
 
         assertEquals(0, sulfuras.getSellIn());
     }
-
+    //tests that the sellIn value is lowered by 1 for one call to updateQuality for a normal item
     @Test
     public void should_lower_the_sellIn_by_one_for_normal_items() throws Exception {
         Item normalItem = new Item("Vest", 10, 20);
@@ -35,7 +37,7 @@ public class InventoryTest {
 
         assertEquals(9, normalItem.getSellIn());
     }
-
+    //tests that the quality value is lowered by 1 for one call to updateQuality for a normal item
     @Test
     public void should_lower_the_quality_by_one_for_normal_items() throws Exception {
         Item normalItem = new Item("Vest", 10, 20);
@@ -45,7 +47,8 @@ public class InventoryTest {
 
         assertEquals(19, normalItem.getQuality());
     }
-
+    /*tests that the quality value is not lowered below 0 for one call to 
+    updateQuality for a normal item*/
     @Test
     public void should_not_lower_the_quality_below_zero() throws Exception {
         Item normalItem = new Item("Vest", 10, 0);
@@ -55,7 +58,8 @@ public class InventoryTest {
 
         assertEquals(0, normalItem.getQuality());
     }
-
+    /*tests that the quality value is lowered by 2 for one call to updateQuality for a normal 
+    item when the sellIn date is passed*/
     @Test
     public void should_lower_the_quality_twice_as_fast_once_the_sell_in_date_has_passed() throws Exception {
         Item normalItem = new Item("Vest", -1, 25);
@@ -65,7 +69,7 @@ public class InventoryTest {
 
         assertEquals(23, normalItem.getQuality());
     }
-
+    //tests that the quality value is increased by 1 for one call to updateQuality on Aged Brie
     @Test
     public void should_increase_the_quality_of_aged_brie_as_it_gets_older() throws Exception {
         Item agedBrie = new Item("Aged Brie", 10, 25);
@@ -75,7 +79,8 @@ public class InventoryTest {
 
         assertEquals(26, agedBrie.getQuality());
     }
-
+    /*tests that the quality value is NOT increased for one call to updateQuality on Aged Brie 
+    with a quality at 50*/
     @Test
     public void should_not_increase_the_quality_of_aged_brie_over_50() throws Exception {
         Item agedBrie = new Item("Aged Brie", 10, 50);
@@ -85,7 +90,8 @@ public class InventoryTest {
 
         assertEquals(50, agedBrie.getQuality());
     }
-
+    /*tests that the quality value is lowered to 0 for one call to updateQuality on Backstage passes
+    with a sellIn value -1*/
     @Test
     public void should_lower_backstage_passes_to_zero_quality_once_concert_has_happened() throws Exception {
         Item backStagePass = new Item("Backstage passes", -1, 20);
@@ -95,7 +101,8 @@ public class InventoryTest {
 
         assertEquals(0, backStagePass.getQuality());
     }
-
+    /*tests that the quality value is increased by 1 for one call to updateQuality on Backstage passes
+    with a sellIn value greater than 10*/
     @Test
     public void should_increase_backstage_passes_quality_by_1_when_the_concert_is_more_than_10_days_away() throws Exception {
         Item backStagePass = new Item("Backstage passes", 11, 20);
@@ -105,7 +112,8 @@ public class InventoryTest {
 
         assertEquals(21, backStagePass.getQuality());
     }
-
+    /*tests that the quality value is increased by 2 for one call to updateQuality on Backstage 
+    passes with a sellIn value equal to or less than 10*/
     @Test
     public void should_increase_backstage_passes_quality_by_2_when_the_concert_is_10_days_or_less_away() throws Exception {
         Item backStagePass = new Item("Backstage passes", 10, 27);
@@ -115,7 +123,8 @@ public class InventoryTest {
 
         assertEquals(29, backStagePass.getQuality());
     }
-
+    /*tests that the quality value is increased by 3 for one call to updateQuality on Backstage passes
+    with a sellIn value equal to or less than 5*/
     @Test
     public void should_increase_backstage_passes_quality_by_3_when_the_concert_is_5_days_or_less_away() throws Exception {
         Item backStagePass = new Item("Backstage passes", 5, 44);
@@ -125,7 +134,8 @@ public class InventoryTest {
 
         assertEquals(47, backStagePass.getQuality());
     }
-
+    /*tests that the quality value is NOT increased for one call to updateQuality on Backstage passes
+   	beyond 50*/
     @Test
     public void should_not_increase_backstage_passes_above_a_quality_of_50() throws Exception {
         Item backStagePassMoreThan10DaysAway = new Item("Backstage passes", 15, 50);
@@ -141,4 +151,6 @@ public class InventoryTest {
         assertEquals(50, backStagePass10DaysAway.getQuality());
         assertEquals(50, backStagePass5DaysAway.getQuality());
     }
+    /*tests that the quality value is increased by for one call to updateQuality on Conjured
+    with a sellIn value greater than 10*/
 }
