@@ -1,3 +1,15 @@
+Hi PICA!
+
+I refactored the code organizing it in a way that made more logical sense to me in my head. I replaced the string "==" implemenation to matching on the substring. This allows for cases where a name for an item has multiple 
+quality modifiers. This change extends the original code as well as allowing for a proper implementation of the added "Conjured" and "X"/"x". I added many comments summarizing the classes and all of the tests.
+
+Link to the repository below.
+Please let me know if you have any questions about my code or would like to see anything else from me. It was a fun exercise and I hope to hear back soon!
+
+Thanks,
+Peter Karp
+https://github.com/petekarp/guilded-rose/
+
 # The PICA Gilded Rose
 
 This is a Java version of the Gilded Rose Kata, adapted for PICA.
