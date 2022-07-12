@@ -3,53 +3,59 @@ to pass items through a day in the lifecycle of the Guilded Rose project.*/
 public class Inventory {
 
     private Item[] items;
+    private int day = 1;
 
     public Inventory(Item[] items) {
         super();
         this.items = items;
+        int day = 1;
     }
 
-    public void updateQuality() {    	
+    public void updateQuality() {      	
         for (int i = 0; i < items.length; i++) {
         	boolean flag = true;			
         	boolean isConjured =  false;
+        	boolean containsX = false;
         	if (!items[i].getName().toUpperCase().contains("Sulfuras".toUpperCase())) {
   				if (items[i].getName().toUpperCase().contains("Conjured".toUpperCase()))
-            		isConjured = true;        		
+            		isConjured = true;  
+  				if (items[i].getName().toUpperCase().contains("X"))
+            		containsX = true; 
         		if (items[i].getName().toUpperCase().contains("Aged Brie".toUpperCase())) {
-        			if (items[i].getQuality() < 50) {        			 
+        			if (items[i].getQuality() < 50 && ((containsX && day % 2 != 0) || !containsX)) {        			 
         				items[i].setQuality(items[i].getQuality() + 1);
-        				if(isConjured)
+        				if(isConjured && ((containsX && day % 2 != 0) || !containsX))
         					items[i].setQuality(items[i].getQuality() + 1);
-        				if (items[i].getSellIn() < 0) {         				 
+        				if (items[i].getSellIn() < 0 && (!containsX || day % 2 != 0)) {         				 
         					items[i].setQuality(items[i].getQuality() + 1);
-        					if(isConjured)
+        					if(isConjured && ((containsX && day % 2 != 0) || !containsX))
         						items[i].setQuality(items[i].getQuality() + 1);
         				}
         			}
         			flag = false;
         		}
         		if(items[i].getName().toUpperCase().contains("Backstage passes".toUpperCase())) {
-        			if (items[i].getQuality() < 50) { 
+        			System.out.println("The Day is: " + day);
+        			if (items[i].getQuality() < 50 && ((containsX && day % 2 != 0) || !containsX)) { 
         				items[i].setQuality(items[i].getQuality() + 1);
-        				if(isConjured && items[i].getQuality() < 50)
+        				if(isConjured && items[i].getQuality() < 50 && ((containsX && day % 2 != 0) || !containsX))
     						items[i].setQuality(items[i].getQuality() + 1);
         			}
 
         			if (items[i].getSellIn() < 11) {        				
-        				if (items[i].getQuality() < 50) { 
+        				if (items[i].getQuality() < 50 && ((containsX && day % 2 != 0) || !containsX)) { 
                     		items[i].setQuality(items[i].getQuality() + 1);
-                    		if(isConjured && items[i].getQuality() < 50)
+                    		if(isConjured && items[i].getQuality() < 50 && ((containsX && day % 2 != 0) || !containsX))
         						items[i].setQuality(items[i].getQuality() + 1);
         				}
         				if (items[i].getSellIn() < 6) {
-        					if (items[i].getQuality() < 50) {                    	
+        					if (items[i].getQuality() < 50 && ((containsX && day % 2 != 0) || !containsX)) {                    	
         						items[i].setQuality(items[i].getQuality() + 1);
-        						if(isConjured && items[i].getQuality() < 50)
+        						if(isConjured && items[i].getQuality() < 50 && ((containsX && day % 2 != 0) || !containsX))
             						items[i].setQuality(items[i].getQuality() + 1);
         					}
         					if (items[i].getSellIn() < 0) {
-        						if (items[i].getQuality() > 0)   {   
+        						if (items[i].getQuality() > 0 && ((containsX && day % 2 != 0) || !containsX))   {   
         							items[i].setQuality(items[i].getQuality()- items[i].getQuality());
         						}
         					}	
@@ -63,14 +69,14 @@ public class Inventory {
             		
         		}
         		if (flag) {
-        			if (items[i].getQuality() > 0) {        			 
+        			if (items[i].getQuality() > 0 && ((containsX && day % 2 != 0) || !containsX)) {        			 
         				items[i].setQuality(items[i].getQuality() - 1);
-        				if(isConjured)
+        				if(isConjured && ((containsX && day % 2 != 0) || !containsX))
         					items[i].setQuality(items[i].getQuality() - 1);
         			}
-	        		if(items[i].getSellIn() < 1) {
+	        		if(items[i].getSellIn() < 1 && ((containsX && day % 2 != 0) || !containsX)) {
 	        			items[i].setQuality(items[i].getQuality() - 1);
-	        			if(isConjured)
+	        			if(isConjured && ((containsX && day % 2 != 0) || !containsX))
 	        				items[i].setQuality(items[i].getQuality() - 1);
 	        		}
             		flag = false;
@@ -83,7 +89,9 @@ public class Inventory {
         			flag = false;
         		} 
         }
+        day++;
     }
+    
 }
 
 

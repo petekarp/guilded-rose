@@ -290,6 +290,51 @@ public class InventoryTest {
         assertEquals(50, backStagePass10DaysAway.getQuality());
         assertEquals(50, backStagePass5DaysAway.getQuality());
     }
+    /*tests that when X is added to Backstage passes, quality is changed every other day (every other time updateQuality is run).
+    First time quality increases by 2, the second time it should not change, 3rd time increase by 2, etc*/
+    @Test
+    public void should_increase_backstage_passes_quality_by_2_when_the_concert_is_10_days_or_less_away_X() throws Exception {
+        Item backStagePass = new Item("Backstage passes X", 10, 27);
+
+        Inventory sut = new Inventory(new Item[]{backStagePass});
+        sut.updateQuality();
+
+        assertEquals(29, backStagePass.getQuality());
+        
+        sut.updateQuality();
+
+        assertEquals(29, backStagePass.getQuality());
+        
+        sut.updateQuality();
+
+        assertEquals(31, backStagePass.getQuality());
+        
+        sut.updateQuality();
+
+        assertEquals(31, backStagePass.getQuality());
+    }
+    /*tests that the quality value is lowered by 2 for one call to updateQuality for a normal
+    item when the sellIn date is passed. Because this one contains X, the second time it is called, quality shouldn't change. 3rd time it 
+    will, etc.*/
+    @Test
+    public void should_lower_the_quality_twice_as_fast_once_the_sell_in_date_has_passed_X() throws Exception {
+        Item normalItem = new Item("Vest X", -1, 25);
+
+        Inventory sut = new Inventory(new Item[]{normalItem});
+        sut.updateQuality();
+
+        assertEquals(23, normalItem.getQuality());
+        sut.updateQuality();
+
+        assertEquals(23, normalItem.getQuality());
+        sut.updateQuality();
+        
+        assertEquals(21, normalItem.getQuality());
+        sut.updateQuality();
+
+        assertEquals(21, normalItem.getQuality());
+        
+    }
     
     
 }
