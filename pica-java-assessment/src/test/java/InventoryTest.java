@@ -187,7 +187,7 @@ public class InventoryTest {
 
     @Test
     public void should_lower_the_quality_by_two_for_normal_items_Conjured() throws Exception {
-        Item normalItem = new Item("Vest", 10, 20);
+        Item normalItem = new Item("Vest Conjured", 10, 20);
 
         Inventory sut = new Inventory(new Item[]{normalItem});
         sut.updateQuality();

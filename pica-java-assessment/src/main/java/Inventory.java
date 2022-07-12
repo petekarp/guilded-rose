@@ -12,27 +12,42 @@ public class Inventory {
     public void updateQuality() {    	
         for (int i = 0; i < items.length; i++) {
         	boolean flag = true;			
+        	boolean isConjured =  false;
         	if (!items[i].getName().toUpperCase().contains("Sulfuras".toUpperCase())) {
+  				if (items[i].getName().toUpperCase().contains("Conjured".toUpperCase()))
+            		isConjured = true;        		
         		if (items[i].getName().toUpperCase().contains("Aged Brie".toUpperCase())) {
         			if (items[i].getQuality() < 50) {        			 
         				items[i].setQuality(items[i].getQuality() + 1);
-        				if (items[i].getSellIn() < 0)         				 
-        					items[i].setQuality(items[i].getQuality() + 1);        			
+        				if(isConjured)
+        					items[i].setQuality(items[i].getQuality() + 1);
+        				if (items[i].getSellIn() < 0) {         				 
+        					items[i].setQuality(items[i].getQuality() + 1);
+        					if(isConjured)
+        						items[i].setQuality(items[i].getQuality() + 1);
+        				}
         			}
         			flag = false;
         		}
         		if(items[i].getName().toUpperCase().contains("Backstage passes".toUpperCase())) {
         			if (items[i].getQuality() < 50) { 
         				items[i].setQuality(items[i].getQuality() + 1);
+        				if(isConjured && items[i].getQuality() < 50)
+    						items[i].setQuality(items[i].getQuality() + 1);
         			}
 
         			if (items[i].getSellIn() < 11) {        				
-        				if (items[i].getQuality() < 50) 
-                    		items[i].setQuality(items[i].getQuality() + 1);                    
-        				
-        				if (items[i].getSellIn() < 6) {
-        					if (items[i].getQuality() < 50)                    	
+        				if (items[i].getQuality() < 50) { 
+                    		items[i].setQuality(items[i].getQuality() + 1);
+                    		if(isConjured && items[i].getQuality() < 50)
         						items[i].setQuality(items[i].getQuality() + 1);
+        				}
+        				if (items[i].getSellIn() < 6) {
+        					if (items[i].getQuality() < 50) {                    	
+        						items[i].setQuality(items[i].getQuality() + 1);
+        						if(isConjured && items[i].getQuality() < 50)
+            						items[i].setQuality(items[i].getQuality() + 1);
+        					}
         					if (items[i].getSellIn() < 0) {
         						if (items[i].getQuality() > 0)   {   
         							items[i].setQuality(items[i].getQuality()- items[i].getQuality());
@@ -43,19 +58,21 @@ public class Inventory {
         			}
         			flag = false;
         		}
-  				if (items[i].getName().toUpperCase().contains("Conjured".toUpperCase())){
-            		
-        		}
+
         		if (items[i].getName().toUpperCase().contains("X")){
             		
         		}
         		if (flag) {
-        			if (items[i].getQuality() > 0)        			 
-        				items[i].setQuality(items[i].getQuality() - 1);    
-        			
-	        		if(items[i].getSellIn() < 1)
-	        			items[i].setQuality(items[i].getQuality() - 1);	 
-	        		
+        			if (items[i].getQuality() > 0) {        			 
+        				items[i].setQuality(items[i].getQuality() - 1);
+        				if(isConjured)
+        					items[i].setQuality(items[i].getQuality() - 1);
+        			}
+	        		if(items[i].getSellIn() < 1) {
+	        			items[i].setQuality(items[i].getQuality() - 1);
+	        			if(isConjured)
+	        				items[i].setQuality(items[i].getQuality() - 1);
+	        		}
             		flag = false;
             	}
                 
